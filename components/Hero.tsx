@@ -28,8 +28,8 @@ export function Hero() {
               <Reveal delay={0.3}>
                 <div className='px-[15%]'>
                   <p className='text-background font-light text-3xl py-4 line-clamp-2'>
-                    We bring influencers and brands together to create authentic
-                    and meaningful partnerships.
+                    We bring influencers and event promoters together to create
+                    authentic and meaningful partnerships.
                   </p>
                 </div>
               </Reveal>

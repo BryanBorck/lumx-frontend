@@ -1,8 +1,8 @@
-import { ProfileForm } from '@/components/ProfileForm'
+import { SignInForm } from '@/components/SignInForm'
 import '../../styles/granygradient.css'
 import { Reveal, RevealWrapper } from '@/components/Reveal'
 
-export default function CreateProfile() {
+export default function SignIn() {
   return (
     <main className='flex min-h-screen flex-col items-center overflow-x-hidden'>
       <div className='h-16 w-full relative overflow-hidden'>
@@ -14,7 +14,7 @@ export default function CreateProfile() {
         <div className='w-[100vw] h-[85vh] pb-[5vh] relative overflow-hidden flex flex-col items-center justify-center'>
           <Reveal delay={0.1}>
             <div className='bg-background h-[70vh] w-[600px] rounded-lg p-6 border-b-[1px] border-secondary lg:shadow-2xl'>
-              <ProfileForm />
+              <SignInForm />
             </div>
           </Reveal>
         </div>

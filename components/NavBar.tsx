@@ -57,7 +57,7 @@ export function NavBar({ flag }: { flag: boolean }) {
                       alt=''
                     />
                     <div className='mb-2 mt-4 text-lg font-bold text-white'>
-                      Amigx
+                      Festx
                     </div>
                     <p className='text-sm leading-tight text-white font-light'>
                       Marketplace to get reward as affiliated

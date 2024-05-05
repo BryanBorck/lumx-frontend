@@ -25,16 +25,14 @@ const formSchema = z.object({
   password: z.string().min(6, {
     message: 'Password must be at least 6 characters.',
   }),
-  email: z.string().email({ message: 'Invalid email address.' }),
 })
 
-export function ProfileForm() {
+export function SignInForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: '',
       password: '',
-      email: '',
     },
   })
 
@@ -70,9 +68,6 @@ export function ProfileForm() {
                   <FormControl>
                     <Input placeholder='shadcn' {...field} />
                   </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
@@ -95,24 +90,8 @@ export function ProfileForm() {
             />
           </Reveal>
           <Reveal delay={0.8}>
-            <FormField
-              control={form.control}
-              name='email'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  {/* @ts-ignore */}
-                  <FormControl type='email'>
-                    <Input placeholder='name@email.com' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </Reveal>
-          <Reveal delay={1}>
             <Button className='w-full mt-2' variant='outline' type='submit'>
-              Sign up
+              Sign in
             </Button>
           </Reveal>
         </form>
