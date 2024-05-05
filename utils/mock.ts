@@ -4,6 +4,22 @@ import event2 from '@/assets/cia_BKG.png'
 import event3 from '@/assets/cia_BKG.png'
 import event4 from '@/assets/cia_BKG.png'
 
+export const userData = [
+  {
+    id: 1,
+    name: 'Bry',
+    email: 'brybry@gmail.com',
+    instagram: 'brybry',
+    password: '123456',
+    avatar: event1,
+    code: 'BRY24',
+    location: 'São José dos Campos',
+    pix: 'brybry@gmail.com',
+    campaigns: [1, 2, 3, 4],
+    tickets: [1, 2, 3, 4],
+  },
+]
+
 export const eventData = [
   {
     id: 1,
