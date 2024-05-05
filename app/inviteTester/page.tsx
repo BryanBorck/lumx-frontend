@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Reveal, RevealWrapper } from '@/components/Reveal'
-import Animation2 from '@/assets/ticket_animation.json'
+import Animation3 from '@/assets/rocket_animation.json'
 import { userType } from '@/utils/props'
 import { userData } from '@/utils/mock'
 import { eventType } from '@/utils/props'
@@ -19,20 +19,28 @@ import { eventData } from '@/utils/mock'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { toast } from '@/components/ui/use-toast'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
+import { Loader2 } from 'lucide-react'
 
-// @ts-ignore
-export default function RewardsDetails({ params: { id } }) {
+export default function inviteTester() {
   const [submitted, setSubmitted] = useState<boolean>(false)
 
   const [loading, setLoading] = useState<boolean>(false)
-  const [user, setUser] = useState<userType | null>(null)
   const [event, setEvent] = useState<eventType | null>(null)
+  const [invitecode, setInvitecode] = useState<string>('')
+  const [options, setOptions] = useState<eventType[]>([])
 
-  const getRewardData = async () => {
+  const getSelectData = async () => {
     try {
       setLoading(true)
-      setUser(userData[0])
-      setEvent(eventData[Number(id) - 1])
+      setOptions(eventData)
       setLoading(false)
     } catch (error) {
       console.error(error)
@@ -40,7 +48,7 @@ export default function RewardsDetails({ params: { id } }) {
   }
 
   useEffect(() => {
-    getRewardData()
+    getSelectData()
   })
 
   const handleSubmit = async () => {
@@ -50,7 +58,7 @@ export default function RewardsDetails({ params: { id } }) {
       setLoading(false)
       setSubmitted(true)
       toast({
-        title: 'Reward claimed! 🎉',
+        title: 'Ticket bought! 🎉',
         description: 'Now you have a spot in the event!',
       })
     } catch (error) {
@@ -69,10 +77,11 @@ export default function RewardsDetails({ params: { id } }) {
                   <CardHeader>
                     <div className='flex flex-col justify-center items-center space-y-2'>
                       <CardTitle className='text-primary'>
-                        Get Reward!
+                        Buy a Ticket!
                       </CardTitle>
                       <CardDescription>
-                        Exchange Tokens to get this ticket reward
+                        Test the API to buy the ticket using a friend invite
+                        code
                       </CardDescription>
                     </div>
                   </CardHeader>
@@ -80,35 +89,55 @@ export default function RewardsDetails({ params: { id } }) {
                 <Reveal delay={0.3}>
                   <CardContent>
                     <Player
-                      src={Animation2}
+                      src={Animation3}
                       className='player h-36'
                       loop
                       autoplay
                     />
                     <div className='flex flex-col justify-center items-center space-y-4 mt-6'>
                       <div className='flex flex-row justify-start items-center space-x-2 w-[300px]'>
-                        <p className='font-light '>Your event:</p>
-                        <p className='text-primary font-bold text-xl'>
-                          {event?.name}
-                        </p>
+                        <Select
+                          onValueChange={e => setEvent(e.target.value)}
+                          defaultValue='1'
+                        >
+                          <SelectTrigger className='w-[300px]'>
+                            <SelectValue placeholder='Select an event' />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value='1'>CIA</SelectItem>
+                            <SelectItem value='2'>Tusca</SelectItem>
+                            <SelectItem value='3'>Hackathon</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
                       <div className='flex flex-row justify-start items-center space-x-2 w-[300px]'>
-                        <p className='font-light '>Your balance:</p>
-                        <p className='text-primary font-bold text-xl'>
-                          {user?.balance} FTX
-                        </p>
+                        <Input
+                          placeholder='Invite code'
+                          className='w-[300px]'
+                          value={invitecode}
+                          onChange={e => setInvitecode(e.target.value)}
+                        />
                       </div>
-                      <div className='flex flex-row justify-start items-center space-x-2 w-[300px]'>
-                        <p className='font-light '>Price:</p>
-                        <p className='text-primary font-bold text-xl'>10 FTX</p>
+                      <div className='flex flex-row justify-start items-center space-x-2 w-[300px] px-2'>
+                        <p className='font-light  text-sm'>Price:</p>
+                        <p className='text-primary font-bold text-sm'>
+                          R$ 100,00
+                        </p>
                       </div>
                       <div className='pt-4'>
-                        <Button
-                          className='text-background'
-                          onClick={() => handleSubmit()}
-                        >
-                          Get Reward
-                        </Button>
+                        {loading ? (
+                          <Button disabled>
+                            <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                            Please wait
+                          </Button>
+                        ) : (
+                          <Button
+                            className='text-background'
+                            onClick={() => handleSubmit()}
+                          >
+                            Buy Ticket
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </CardContent>
@@ -130,9 +159,6 @@ export default function RewardsDetails({ params: { id } }) {
                       loop
                       autoplay
                     />
-                    <div className='flex flex-row space-x-4'>
-                      <p>Now spread more invites and get more</p>
-                    </div>
                   </div>
                   <div className='flex flex-col justify-center w-full items-center mt-6'>
                     <Link href='/campaigns'>

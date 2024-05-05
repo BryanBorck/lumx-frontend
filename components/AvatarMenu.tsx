@@ -15,18 +15,64 @@ import {
 } from '@/components/ui/avatar-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { ModeToggle } from './mode-toggle'
+import { userType } from '@/utils/props'
+import { userData } from '@/utils/mock'
+import { useEffect, useState } from 'react'
+import { Button } from './ui/button'
 
 export function AvatarMenu() {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [user, setUser] = useState<userType | null>(null)
+
+  const getUserData = async () => {
+    try {
+      setLoading(true)
+      setUser(userData[0])
+      setLoading(false)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    getUserData()
+  })
+
   return (
     <NavigationMenu>
       <NavigationMenuViewport className='' />
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>
-            <Avatar className='hover:cursor-pointer'>
-              <AvatarImage src='https://github.com/shadcn.png' />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+            {!loading && user && (
+              <div className='w-[300x] flex flex-row items-center h-full space-x-4'>
+                <div className='space-y-2'>
+                  <p className='text-xs font-medium leading-none'>Balance</p>
+                  <p className='text-xs text-primary font-bold leading-none'>
+                    {user?.balance} FTX
+                  </p>
+                </div>
+                <div className='space-y-2'>
+                  <p className='text-xs font-medium leading-none'>
+                    {user?.name}
+                  </p>
+                  <p className='text-xs text-primary font-bold leading-none'>
+                    {user?.code}
+                  </p>
+                </div>
+                <Avatar className='hover:cursor-pointer'>
+                  <AvatarImage src='https://github.com/shadcn.png' />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+              </div>
+            )}
+            {!user && (
+              <div className='w-[300px] h-full flex flex-row items-center justify-center'>
+                <div className='text-primary font-bold leading-none'>
+                  Sign In
+                </div>
+              </div>
+            )}
           </NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className='grid gap-1 p-2 md:w-[200px] lg:w-[300px]'>

@@ -7,6 +7,7 @@ export type userType = {
   instagram: string
   password: string
   avatar: StaticImageData
+  balance: number
   code: string
   location: string
   pix: string

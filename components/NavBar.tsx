@@ -36,7 +36,9 @@ export function NavBar({ flag }: { flag: boolean }) {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={flag === true ? '' : 'text-white'}>
+          <NavigationMenuTrigger
+            className={flag === true ? 'hover:text-primary' : 'text-white'}
+          >
             Getting started
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -73,7 +75,9 @@ export function NavBar({ flag }: { flag: boolean }) {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger className={flag === true ? '' : 'text-white'}>
+          <NavigationMenuTrigger
+            className={flag === true ? 'hover:text-primary' : 'text-white'}
+          >
             Explore More
           </NavigationMenuTrigger>
           <NavigationMenuContent>
@@ -93,7 +97,22 @@ export function NavBar({ flag }: { flag: boolean }) {
         <NavigationMenuItem>
           <Link href='/profile' legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              <p className={flag === true ? '' : 'text-white'}>Profile</p>
+              <p
+                className={flag === true ? 'hover:text-primary' : 'text-white'}
+              >
+                Profile
+              </p>
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href='/inviteTester' legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              <p
+                className={flag === true ? 'hover:text-primary' : 'text-white'}
+              >
+                Test Invite Code
+              </p>
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>

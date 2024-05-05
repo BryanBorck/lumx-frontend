@@ -49,7 +49,7 @@ export function Header() {
               alt=''
             />
           )}
-          <p className='cursor-pointer text-foreground mx-2 hidden lg:inline-block'>
+          <p className='cursor-pointer text-foreground mx-2 hidden lg:inline-block  w-[180px]'>
             Amigx
           </p>
         </Link>

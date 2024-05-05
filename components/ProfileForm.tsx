@@ -81,7 +81,7 @@ export function ProfileForm() {
         </Reveal>
         <Reveal delay={0.8}>
           <Button variant='outline' type='submit'>
-            Submit
+            Sign up
           </Button>
         </Reveal>
       </form>

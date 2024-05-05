@@ -12,6 +12,7 @@ export const userData = [
     instagram: 'brybry',
     password: '123456',
     avatar: event1,
+    balance: 1000,
     code: 'BRY24',
     location: 'São José dos Campos',
     pix: 'brybry@gmail.com',
