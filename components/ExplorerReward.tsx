@@ -32,24 +32,25 @@ export default function ExplorerRewards() {
           <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
             {events.map((event, index) => {
               return (
-                <Reveal delay={index * 0.2}>
-                  <CardReward
-                    key={index}
-                    id={event.id}
-                    name={event.name}
-                    description={event.description}
-                    image={event.image}
-                    location={event.location}
-                    instagram={event.instagram}
-                    date={event.date}
-                    category={event.category}
-                    tokenSupply={event.tokenSupply}
-                    tokenEarned={event.tokenEarned}
-                    tokenSpent={event.tokenSpent}
-                    price={event.price}
-                    loading={loading}
-                  />
-                </Reveal>
+                <div key={index}>
+                  <Reveal delay={index * 0.2}>
+                    <CardReward
+                      id={event.id}
+                      name={event.name}
+                      description={event.description}
+                      image={event.image}
+                      location={event.location}
+                      instagram={event.instagram}
+                      date={event.date}
+                      category={event.category}
+                      tokenSupply={event.tokenSupply}
+                      tokenEarned={event.tokenEarned}
+                      tokenSpent={event.tokenSpent}
+                      price={event.price}
+                      loading={loading}
+                    />
+                  </Reveal>
+                </div>
               )
             })}
           </div>
