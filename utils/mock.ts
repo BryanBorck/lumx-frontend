@@ -8,7 +8,7 @@ export const eventData = [
   {
     id: 1,
     name: 'CIA',
-    description: 'conservative fund',
+    description: 'The biggest universitary festival, 6 open bar parties and a competition with more than 5 sports and hundreds of universities',
     avatar: event1,
     image: bkg,
     location: 'Uberaba',
@@ -19,10 +19,10 @@ export const eventData = [
   {
     id: 2,
     name: 'Tusca',
-    description: 'high trend fund',
+    description: 'Organized by the athletic association of UFSCar, this is the biggest universitary festival in the city of São Carlos, reuniting the majority of the universities in São Paulo', 
     avatar: event2,
     image: bkg,
-    location: 'Uberaba',
+    location: 'São Carlos',
     trend: 'High',
     comission: '10',
     performance: '+20%',
