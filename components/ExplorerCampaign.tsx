@@ -26,7 +26,7 @@ export default function ExplorerCampaigns() {
   })
 
   return (
-    <div className='w-[100vw] relative'>
+    <div className='w-[100vw] relative max-w-screen-2xl'>
       <div className='p-6 w-full md:p-12 lg:p-12 mb-24'>
         <RevealWrapper>
           <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
@@ -38,12 +38,15 @@ export default function ExplorerCampaigns() {
                     id={event.id}
                     name={event.name}
                     description={event.description}
-                    avatar={event.avatar}
                     image={event.image}
                     location={event.location}
-                    trend={event.trend}
-                    comission={event.comission}
-                    performance={event.performance}
+                    instagram={event.instagram}
+                    date={event.date}
+                    category={event.category}
+                    tokenSupply={event.tokenSupply}
+                    tokenEarned={event.tokenEarned}
+                    tokenSpent={event.tokenSpent}
+                    price={event.price}
                     loading={loading}
                   />
                 </Reveal>

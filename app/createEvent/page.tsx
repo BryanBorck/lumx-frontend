@@ -2,7 +2,7 @@ import '../../styles/granygradient.css'
 import { Reveal, RevealWrapper } from '@/components/Reveal'
 import { EventForm } from '@/components/EventForm'
 
-export default function createEvent() {
+export default function CreateEvent() {
   return (
     <main className='flex min-h-screen flex-col items-center overflow-x-hidden'>
       <div className='h-16 w-full relative overflow-hidden'>

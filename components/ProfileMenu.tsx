@@ -12,6 +12,8 @@ import {
 } from '@/components/ui/card'
 import { userType } from '@/utils/props'
 import { userData } from '@/utils/mock'
+import { eventType } from '@/utils/props'
+import { eventData } from '@/utils/mock'
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -23,6 +25,43 @@ import { Label } from './ui/label'
 export default function ProfileMenu() {
   const [loading, setLoading] = useState<boolean>(false)
   const [user, setUser] = useState<userType | null>(null)
+  const [events, setEvents] = useState<eventType[]>([])
+
+  const getPageData = async () => {
+    try {
+      setLoading(true)
+      setEvents(eventData)
+      setLoading(false)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    getPageData()
+  })
+
+  const [pixCode, setPixCode] = useState<string>('')
+  const [tokenWithdraw, setTokenWithdraw] = useState<number>(0)
+
+  const handleWithdraw = async () => {
+    try {
+      setLoading(true)
+      console.log(
+        'Withdrawing',
+        tokenWithdraw,
+        'FTX to the user pix code ',
+        pixCode,
+      )
+
+      // Atualiza o balance
+
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      setLoading(false)
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   const getCardData = async () => {
     try {
@@ -139,25 +178,30 @@ export default function ProfileMenu() {
               </h1>
               <div className='px-12 pt-4'>
                 <CardDescription className='mt-8'>
-                  <Label className='p-2'>Pic Code</Label>
+                  <Label className='p-2'>Pix Code</Label>
                   <Input
                     placeholder='Pix Code'
                     className='mb-4 mt-2'
-                    value={user?.pix}
+                    value={pixCode}
+                    onChange={e => setPixCode(e.target.value)}
                   />
                   <Label className='p-2'>Token Balance</Label>
-                  <Input
-                    placeholder='Instagram'
-                    className='mb-4 mt-2'
-                    value={user?.instagram}
-                  />
+                  <div className='mb-4 mt-2 p-2 text-primary'>
+                    {user?.balance} FTX
+                  </div>
                   <Label className='p-2'>Tokens to withdraw</Label>
                   <Input
-                    placeholder='Email'
+                    placeholder='10 FTX'
                     className='mb-4 mt-2'
-                    value={user?.email}
+                    value={tokenWithdraw}
+                    onChange={e => setTokenWithdraw(Number(e.target.value))}
                   />
-                  <Button className='w-full text-background'>Widthdraw</Button>
+                  <Button
+                    onClick={handleWithdraw}
+                    className='w-full text-background'
+                  >
+                    Widthdraw
+                  </Button>
                 </CardDescription>
               </div>
             </TabsContent>
@@ -173,25 +217,24 @@ export default function ProfileMenu() {
                       as={`/campaigns/${campaign}`}
                       key={index}
                     >
-                      <Card
-                        key={index}
-                        className='aspect-square shadow-lg cursor-pointer'
-                      >
+                      <Card key={index} className='shadow-lg cursor-pointer'>
                         <CardHeader>
                           <Image
-                            src={user?.avatar}
+                            src={events[Number(campaign) - 1]?.image}
                             alt=''
                             className='w-full h-36 object-cover rounded-lg'
                           />
                         </CardHeader>
                         <CardContent>
-                          <CardTitle>CIA</CardTitle>
+                          <CardTitle>
+                            {events[Number(campaign) - 1]?.name}
+                          </CardTitle>
                           <CardDescription>
-                            <p>Uberaba</p>
+                            <p>{events[Number(campaign) - 1]?.location}</p>
                           </CardDescription>
                         </CardContent>
                         <CardFooter>
-                          <p>11/01/2000</p>
+                          {events[Number(campaign) - 1]?.date}
                         </CardFooter>
                       </Card>
                     </Link>
@@ -211,25 +254,24 @@ export default function ProfileMenu() {
                       as={`/rewards/${ticket}`}
                       key={index}
                     >
-                      <Card
-                        key={index}
-                        className='aspect-square shadow-lg cursor-pointer'
-                      >
+                      <Card key={index} className='shadow-lg cursor-pointer'>
                         <CardHeader>
                           <Image
-                            src={user?.avatar}
+                            src={events[Number(ticket) - 1]?.image}
                             alt=''
                             className='w-full h-36 object-cover rounded-lg'
                           />
                         </CardHeader>
                         <CardContent>
-                          <CardTitle>CIA</CardTitle>
+                          <CardTitle>
+                            {events[Number(ticket) - 1]?.name}
+                          </CardTitle>
                           <CardDescription>
-                            <p>Uberaba</p>
+                            <p>{events[Number(ticket) - 1]?.location}</p>
                           </CardDescription>
                         </CardContent>
                         <CardFooter>
-                          <p>11/01/2000</p>
+                          {events[Number(ticket) - 1]?.date}
                         </CardFooter>
                       </Card>
                     </Link>

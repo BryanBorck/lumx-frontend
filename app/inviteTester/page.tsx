@@ -29,11 +29,11 @@ import {
 import { Input } from '@/components/ui/input'
 import { Loader2 } from 'lucide-react'
 
-export default function inviteTester() {
+export default function InviteTester() {
   const [submitted, setSubmitted] = useState<boolean>(false)
 
   const [loading, setLoading] = useState<boolean>(false)
-  const [event, setEvent] = useState<eventType | null>(null)
+  const [eventId, setEventId] = useState<string>('')
   const [invitecode, setInvitecode] = useState<string>('')
   const [options, setOptions] = useState<eventType[]>([])
 
@@ -55,6 +55,8 @@ export default function inviteTester() {
     try {
       setLoading(true)
       await new Promise(resolve => setTimeout(resolve, 2000))
+      console.log('Event ID:', eventId)
+      console.log('Invite code:', invitecode)
       setLoading(false)
       setSubmitted(true)
       toast({
@@ -97,7 +99,8 @@ export default function inviteTester() {
                     <div className='flex flex-col justify-center items-center space-y-4 mt-6'>
                       <div className='flex flex-row justify-start items-center space-x-2 w-[300px]'>
                         <Select
-                          onValueChange={e => setEvent(e.target.value)}
+                          value={eventId}
+                          onValueChange={setEventId}
                           defaultValue='1'
                         >
                           <SelectTrigger className='w-[300px]'>
@@ -122,6 +125,7 @@ export default function inviteTester() {
                         <p className='font-light  text-sm'>Price:</p>
                         <p className='text-primary font-bold text-sm'>
                           R$ 100,00
+                          {/* VER DEPOIS */}
                         </p>
                       </div>
                       <div className='pt-4'>

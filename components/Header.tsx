@@ -49,8 +49,8 @@ export function Header() {
               alt=''
             />
           )}
-          <p className='cursor-pointer text-foreground mx-2 hidden lg:inline-block  w-[180px]'>
-            Amigx
+          <p className='cursor-pointer text-foreground mx-2 hidden lg:inline-block w-[120px]'>
+            Festx
           </p>
         </Link>
         <div className='flex-1 flex flex-row h-[100%] justify-center items-center hidden lg:flex'>

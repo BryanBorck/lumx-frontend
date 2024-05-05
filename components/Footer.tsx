@@ -30,9 +30,9 @@ const Footer = () => {
                   {/* <img src={Logo} alt="Whale Finance Logo" className="w-[70px] h-[70px]"/> */}
                   <h5 className='text-xl font-semibold mb-4 mt-4'>About Us</h5>
                   <p className='text-background'>
-                    We are the first decentralized platform that allows
-                    investors to invest in a manager's portfolio and managers to
-                    manage investors' assets.
+                    We are connecting all kinds of influencers to the events
+                    they want to support. We abstract all the on chain
+                    operations so our service is easy to use for everyone.
                   </p>
                 </div>
 
@@ -67,6 +67,7 @@ const Footer = () => {
                 <div>
                   <h5 className='text-xl font-semibold mb-4'>Contact Us</h5>
                   <ul className='text-background'>
+                    <li className='mb-2'>Dev Team: Whale Labs</li>
                     <li className='mb-2'>Email: whale_finance@gmail.com</li>
                     <li className='mb-2'>
                       Address: DCTA, São José dos Campos Brazil
@@ -103,7 +104,7 @@ const Footer = () => {
               </div>
 
               <div className='text-center text-background mt-8'>
-                © {new Date().getFullYear()} Whale Finance. All rights reserved.
+                © {new Date().getFullYear()} Festx. All rights reserved.
               </div>
             </Reveal>
           </div>

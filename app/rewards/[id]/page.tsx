@@ -100,7 +100,9 @@ export default function RewardsDetails({ params: { id } }) {
                       </div>
                       <div className='flex flex-row justify-start items-center space-x-2 w-[300px]'>
                         <p className='font-light '>Price:</p>
-                        <p className='text-primary font-bold text-xl'>10 FTX</p>
+                        <p className='text-primary font-bold text-xl'>
+                          {event?.tokenSpent} FTX
+                        </p>
                       </div>
                       <div className='pt-4'>
                         <Button

@@ -2,7 +2,7 @@ import { ProfileForm } from '@/components/ProfileForm'
 import '../../styles/granygradient.css'
 import { Reveal, RevealWrapper } from '@/components/Reveal'
 
-export default function createProfile() {
+export default function CreateProfile() {
   return (
     <main className='flex min-h-screen flex-col items-center overflow-x-hidden'>
       <div className='h-16 w-full relative overflow-hidden'>

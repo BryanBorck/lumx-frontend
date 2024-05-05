@@ -19,10 +19,13 @@ export type eventType = {
   id: number
   name: string
   description: string
-  avatar: StaticImageData
   image: StaticImageData
   location: string
-  trend: string
-  comission: string
-  performance: string
+  instagram: string
+  date: string
+  category: string
+  tokenSupply: string
+  tokenEarned: string
+  tokenSpent: string
+  price: string
 }

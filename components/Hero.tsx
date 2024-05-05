@@ -19,7 +19,7 @@ export function Hero() {
               <div className='h-fullflex flex-col items-center justify-center'>
                 <Reveal delay={0.1}>
                   <p className='typed_out text-background font-bold text-8xl py-4'>
-                    Amigx
+                    Festx
                   </p>
                 </Reveal>
               </div>
