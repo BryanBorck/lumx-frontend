@@ -16,77 +16,192 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Reveal, RevealWrapper } from '@/components/Reveal'
+import { toast } from './ui/use-toast'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-  password: z.string().min(6, {
-    message: 'Password must be at least 6 characters.',
-  }),
+  name: z.string(),
+  description: z.string(),
+  location: z.string(),
+  date: z.string(),
+  ticketSupply: z.number(),
+  tokenEarned: z.number(),
+  tokenSpent: z.number(),
+  price: z.number(),
 })
 
 export function EventForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: '',
-      password: '',
+      name: '',
+      description: '',
+      location: '',
+      date: '',
+      ticketSupply: 0,
+      tokenEarned: 0,
+      tokenSpent: 0,
+      price: 0,
     },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
+    toast({
+      title: 'You created an event! 🎉',
+      description: 'Continue using Festx to improve your marketing!',
+    })
     console.log(values)
   }
 
   return (
-    <RevealWrapper>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-          <Reveal delay={0.4}>
-            <FormField
-              control={form.control}
-              name='username'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input placeholder='shadcn' {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </Reveal>
-          <Reveal delay={0.6}>
-            <FormField
-              control={form.control}
-              name='password'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  {/* @ts-ignore */}
-                  <FormControl type='password'>
-                    <Input placeholder='****' {...field} />
-                  </FormControl>
-                  <FormDescription>Define a password</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </Reveal>
-          <Reveal delay={0.8}>
-            <Button variant='outline' type='submit'>
-              Submit
-            </Button>
-          </Reveal>
-        </form>
-      </Form>
-    </RevealWrapper>
+    <Tabs defaultValue='account' className='w-full h-full'>
+      <TabsList className='grid w-full grid-cols-2'>
+        <TabsTrigger value='account'>Account</TabsTrigger>
+        <TabsTrigger value='token'>Financial</TabsTrigger>
+      </TabsList>
+
+      <RevealWrapper>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
+            <TabsContent value='account'>
+              <Reveal delay={0.4}>
+                <FormField
+                  control={form.control}
+                  name='name'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder='My Event Name' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </Reveal>
+              <Reveal delay={0.6}>
+                <FormField
+                  control={form.control}
+                  name='description'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Input placeholder='Very cool party!' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </Reveal>
+              <Reveal delay={0.8}>
+                <FormField
+                  control={form.control}
+                  name='location'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Location</FormLabel>
+                      <FormControl>
+                        <Input placeholder='Rio de Janeiro - RJ' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </Reveal>
+              <Reveal delay={1}>
+                <FormField
+                  control={form.control}
+                  name='date'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Date</FormLabel>
+                      <FormControl>
+                        <Input placeholder='30/05/2024' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </Reveal>
+            </TabsContent>
+            <TabsContent value='token'>
+              <Reveal delay={0.4}>
+                <FormField
+                  control={form.control}
+                  name='ticketSupply'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Number max of referrals</FormLabel>
+                      <FormControl>
+                        <Input type='number' placeholder='100' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </Reveal>
+              <Reveal delay={0.6}>
+                <FormField
+                  control={form.control}
+                  name='tokenEarned'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Tokens earned by referral</FormLabel>
+                      <FormControl>
+                        <Input type='number' placeholder='100 FTX' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </Reveal>
+              <Reveal delay={0.8}>
+                <FormField
+                  control={form.control}
+                  name='tokenSpent'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Ticket reward price</FormLabel>
+                      <FormControl>
+                        <Input type='number' placeholder='200 FTX' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </Reveal>
+              <Reveal delay={1}>
+                <FormField
+                  control={form.control}
+                  name='price'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Price</FormLabel>
+                      <FormControl>
+                        <Input
+                          type='number'
+                          placeholder='100 reais'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </Reveal>
+              <Reveal delay={1.2}>
+                {/* @ts-ignore */}
+                <Button variant='outline' type='submit' classname='w-full mt-4'>
+                  Submit
+                </Button>
+              </Reveal>
+            </TabsContent>
+          </form>
+        </Form>
+      </RevealWrapper>
+    </Tabs>
   )
 }
