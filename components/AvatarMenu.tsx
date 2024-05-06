@@ -19,10 +19,13 @@ import { userType } from '@/utils/props'
 import { userData } from '@/utils/mock'
 import { useEffect, useState } from 'react'
 import { Button } from './ui/button'
+import AuthContext from '@/app/contexts'
 
 export function AvatarMenu() {
   const [loading, setLoading] = useState<boolean>(false)
   const [user, setUser] = useState<userType | null>(null)
+
+  const {name, referralCode, walletId, walletAddress, email} = React.useContext(AuthContext) as any;
 
   const getUserData = async () => {
     try {
@@ -57,7 +60,7 @@ export function AvatarMenu() {
                     {user?.name}
                   </p>
                   <p className='text-xs text-primary font-bold leading-none'>
-                    {user?.code}
+                    {referralCode}
                   </p>
                 </div>
                 <Avatar className='hover:cursor-pointer'>

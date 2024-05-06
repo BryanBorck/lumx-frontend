@@ -28,7 +28,11 @@ export default function ProfileMenu() {
   const [user, setUser] = useState<userType | null>(null)
   const [events, setEvents] = useState<eventType[]>([])
 
-  const {email, referralCode, name} = useContext(AuthContext) as any;
+  const {email, referralCode, name, walletId} = useContext(AuthContext) as any;
+
+  console.log("email", email);
+  console.log("referralCode", referralCode);
+  console.log("name", name);
 
   const getPageData = async () => {
     try {
@@ -54,7 +58,7 @@ export default function ProfileMenu() {
         'Withdrawing',
         tokenWithdraw,
         'FTX to the user pix code ',
-        pixCode,
+        walletId,
       )
 
       // Atualiza o balance
@@ -181,11 +185,11 @@ export default function ProfileMenu() {
               </h1>
               <div className='px-12 pt-4'>
                 <CardDescription className='mt-8'>
-                  <Label className='p-2'>Pix Code</Label>
+                  <Label className='p-2'>Wallet Id</Label>
                   <Input
-                    placeholder='Pix Code'
+                    placeholder=''
                     className='mb-4 mt-2'
-                    value={pixCode}
+                    value={walletId}
                     onChange={e => setPixCode(e.target.value)}
                   />
                   <Label className='p-2'>Token Balance</Label>
