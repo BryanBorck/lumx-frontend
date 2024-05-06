@@ -17,6 +17,9 @@ import {
 import { Input } from '@/components/ui/input'
 import { Reveal } from '@/components/Reveal'
 import { toast } from './ui/use-toast'
+import { useContext } from 'react'
+import AuthContext from '@/app/contexts'
+import { AuthTypes } from '@/types/types'
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -28,6 +31,8 @@ const formSchema = z.object({
 })
 
 export function SignInForm() {
+  const authObj = useContext(AuthContext)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,11 +47,17 @@ export function SignInForm() {
 
     const inviteCode = '123456'
 
-    // how to concatenate strings?
+    // Auth API
+
+    if (values.username === 'bry' && values.password === '123456') {
+      authObj.setEmail('brybry@gmail.com')
+    }
+
+    console.log(authObj)
 
     toast({
-      title: 'You sign up! 🎉',
-      description: 'Your invite code is ' + inviteCode + '!',
+      title: 'You sign in! 🎉',
+      description: 'Welcome to the app!',
     })
     console.log(values)
   }
