@@ -193,10 +193,11 @@ export function EventForm() {
                 />
               </Reveal>
               <Reveal delay={1.2}>
-                {/* @ts-ignore */}
-                <Button variant='outline' type='submit' classname='w-full mt-4'>
-                  Submit
-                </Button>
+                <div className='mt-6'>
+                  <Button variant='outline' type='submit'>
+                    Submit
+                  </Button>
+                </div>
               </Reveal>
             </TabsContent>
           </form>

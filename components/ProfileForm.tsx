@@ -35,6 +35,7 @@ export function ProfileForm() {
       username: '',
       password: '',
       email: '',
+      location: '',
     },
   })
 
