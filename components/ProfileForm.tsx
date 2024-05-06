@@ -17,6 +17,10 @@ import {
 import { Input } from '@/components/ui/input'
 import { Reveal } from '@/components/Reveal'
 import { toast } from './ui/use-toast'
+import { useContext, useState } from 'react'
+import AuthContext from '@/app/contexts'
+import { redirect } from 'next/navigation'
+
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -29,6 +33,10 @@ const formSchema = z.object({
 })
 
 export function ProfileForm() {
+  const [inviteCode, setInviteCode] = useState('' as string)
+  const {setEmail, setWalletId, setWalletAddress, setReferalCode, setName} = useContext(AuthContext) as any;
+
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,19 +47,49 @@ export function ProfileForm() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
-    const inviteCode = '123456'
 
-    // how to concatenate strings?
+      
+      const { username, password, email } = values
 
-    toast({
-      title: 'You sign up! 🎉',
-      description: 'Your invite code is ' + inviteCode + '!',
-    })
-    console.log(values)
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          name: username,
+          email: email,
+          password: password,
+        }),
+      }
+
+      const url = process.env.NEXT_PUBLIC_API_URL + '/signup';
+
+      console.log(url)
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+
+      console.log(data)
+      const { wallet_id, wallet_address, referral_code} = data;
+
+      console.log(referral_code)
+
+      setInviteCode(referral_code)
+      setWalletId(wallet_id)
+      setWalletAddress(wallet_address)
+      setEmail(email)
+      setReferalCode(referral_code)
+      setName(username)
+
+
+      toast({
+        title: 'You sign up! 🎉',
+        description: 'Your invite code is ' + referral_code + '!',
+      })
+
   }
 
   return (

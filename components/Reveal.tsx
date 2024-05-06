@@ -18,7 +18,6 @@ export function RevealWrapper({
   const ref = useRef(null)
   const [inView, setInView] = useState(false)
 
-  console.log('RevealWrapper', inView)
 
   useVisibilityChecker({
     ref,

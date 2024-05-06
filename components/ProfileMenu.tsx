@@ -14,18 +14,21 @@ import { userType } from '@/utils/props'
 import { userData } from '@/utils/mock'
 import { eventType } from '@/utils/props'
 import { eventData } from '@/utils/mock'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import imageBkg from '@/assets/bkg.jpeg'
 import { Input } from '@/components/ui/input'
 import { Button } from './ui/button'
 import { Label } from './ui/label'
+import AuthContext from '@/app/contexts'
 
 export default function ProfileMenu() {
   const [loading, setLoading] = useState<boolean>(false)
   const [user, setUser] = useState<userType | null>(null)
   const [events, setEvents] = useState<eventType[]>([])
+
+  const {email, referralCode, name} = useContext(AuthContext) as any;
 
   const getPageData = async () => {
     try {
@@ -130,7 +133,7 @@ export default function ProfileMenu() {
                     />
                     <div className='flex flex-col ml-6'>
                       <p className='text-2xl font-bold text-background'>
-                        {user?.name}
+                        {name}
                       </p>
                       <p className='text-lg font-light text-background'>
                         @{user?.instagram}
@@ -139,7 +142,7 @@ export default function ProfileMenu() {
                     <div className='absolute right-12 top-8'>
                       <p className='px-4 mb-2'>Invite Code</p>
                       <div className='border-background border-[2px] font-bold w-[150px] py-1 rounded-lg px-4'>
-                        <p>{user?.code}</p>
+                        <p>{referralCode}</p>
                       </div>
                     </div>
                   </div>
@@ -150,7 +153,7 @@ export default function ProfileMenu() {
                     <Input
                       placeholder='Name'
                       className='mb-4'
-                      value={user?.name}
+                      value={name}
                     />
                     <Input
                       placeholder='Instagram'

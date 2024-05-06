@@ -1,10 +1,12 @@
 export type AuthTypes = {
   referralCode: string
-  setReferalCode: any
+  setReferralCode: any
   walletId: string
   setWalletId: any
   walletAddress: string
   setWalletAddress: any
   email: string
-  setEmail: any
+  setEmail: any,
+  name: string,
+  setName: any,
 }

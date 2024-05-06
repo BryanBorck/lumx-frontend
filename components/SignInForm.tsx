@@ -31,7 +31,7 @@ const formSchema = z.object({
 })
 
 export function SignInForm() {
-  const authObj = useContext(AuthContext)
+  const { setEmail, setName, setReferralCode, setWalletId, setWalletAddress,  } = useContext(AuthContext) as any;
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,25 +41,60 @@ export function SignInForm() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
 
-    const inviteCode = '123456'
 
     // Auth API
 
-    if (values.username === 'bry' && values.password === '123456') {
-      authObj.setEmail('brybry@gmail.com')
+    const { username, password } = values
+
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        email: username,
+        password: password,
+      }),
     }
 
-    console.log(authObj)
+    const url = process.env.NEXT_PUBLIC_API_URL + '/signin';
 
-    toast({
-      title: 'You sign in! 🎉',
-      description: 'Welcome to the app!',
-    })
-    console.log(values)
+    const response = await fetch(url, options)
+    const data = await response.json()
+
+    console.log(data)
+    console.log(data.referral_code)
+
+    if (response.status === 200) {
+      console.log("AAAA")
+      setEmail(data.email)
+      setName(data.name)
+      setReferralCode(data.referral_code)
+      setWalletId(data.wallet_id)
+      setWalletAddress(data.wallet_address)
+
+    } else {
+      console.error(data)
+    }
+
+
+
+    try{
+      
+      
+      toast({
+        title: 'You sign in! 🎉',
+        description: 'Welcome to the app!',
+      })
+      console.log(values)
+
+    } catch(err){
+      console.error(err)
+
+    }
+    
   }
 
   return (
