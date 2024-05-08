@@ -71,11 +71,11 @@ export default function CampaignDetails({ params: { id } }) {
   }
 
   return (
-    <div className='w-[100vw] mt-16'>
+    <div className='w-[95vw] mt-16'>
       <RevealWrapper>
         <div className='p-12 flex flex-col items-center'>
-          <div className='shadow-2xl border-lg w-[60%] borded-primary border-[2px] overflow-hidden'>
-            <div className='h-[70vh] flex flex-row'>
+          <div className='shadow-2xl border-lg w-[90%] borded-primary border-[4px] overflow-hidden'>
+            <div className='h-[85vh] flex flex-row'>
               <div className='w-[60%] h-full relative overflow-hidden bg-red-600'>
                 <Image
                   src={event?.image as unknown as string}
@@ -99,7 +99,7 @@ export default function CampaignDetails({ params: { id } }) {
               </div>
               <div className='w-[40%] h-full relative overflow-hidden'>
                 <CardHeader>
-                  <div className='flex flex-col justify-center items-center space-y-2'>
+                  <div className='flex flex-col justify-center items-center space-y-2 '>
                     <CardTitle className='text-primary'>
                       Promote this Event!
                     </CardTitle>
@@ -123,15 +123,15 @@ export default function CampaignDetails({ params: { id } }) {
                       </div>
                       <Progress value={33} className='w-full mt-4 mb-2 h-3' />
                     </div>
-                    <div className='flex flex-row justify-start items-center space-x-4 w-[400px] pt-6'>
-                      <p className='font-light '>
+                    <div className='flex flex-row justify-center items-center space-x-4 w-[600px] pt-6'>
+                      <p className='font-light'>
                         Tokens earned by each referral
                       </p>
                       <p className='text-primary font-bold text-xl'>
                         {event?.tokenEarned} FTX
                       </p>
                     </div>
-                    <div className='flex flex-row justify-start items-center space-x-4 w-[400px]'>
+                    <div className='flex flex-row items-center space-x-4 w-[400px]'>
                       <p className='font-light '>Ticket Price:</p>
                       <p className='text-primary font-bold text-xl'>
                         {formatCurrency(event?.price as unknown as string)}
@@ -151,7 +151,7 @@ export default function CampaignDetails({ params: { id } }) {
             </div>
           </div>
         </div>
-      </RevealWrapper>
+        </RevealWrapper>
     </div>
   )
 }
