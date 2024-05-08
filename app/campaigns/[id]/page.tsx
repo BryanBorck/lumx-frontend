@@ -111,19 +111,19 @@ export default function CampaignDetails({ params: { id } }) {
                 <CardContent>
                   <Player
                     src={Animation}
-                    className='player h-48'
+                    className='player h-28'
                     loop
                     autoplay
                   />
-                  <div className='flex flex-col justify-center items-center space-y-4'>
-                    <div className='flex flex-col justify-center items-start space-x-2 w-[400px]'>
+                  <div className='flex flex-col justify-center items-center space-y-2'>
+                    <div className='flex flex-col justify-center items-start space-x-2 w-[250px]'>
                       <div className='px-4 flex flex-row space-x-2 items-center'>
                         <p className='font-bold text-primary'>33%</p>
                         <p className='font-light text-primary'>Completed</p>
                       </div>
                       <Progress value={33} className='w-full mt-4 mb-2 h-3' />
                     </div>
-                    <div className='flex flex-row justify-start items-center space-x-4 w-[400px] pt-6'>
+                    <div className='flex flex-row justify-start items-center space-x-4 w-[250px] pt-6'>
                       <p className='font-light '>
                         Tokens earned by each referral
                       </p>
@@ -131,7 +131,7 @@ export default function CampaignDetails({ params: { id } }) {
                         {event?.tokenEarned} FTX
                       </p>
                     </div>
-                    <div className='flex flex-row justify-start items-center space-x-4 w-[400px]'>
+                    <div className='flex flex-row justify-start items-center space-x-4 w-[250px]'>
                       <p className='font-light '>Ticket Price:</p>
                       <p className='text-primary font-bold text-xl'>
                         {formatCurrency(event?.price as unknown as string)}
