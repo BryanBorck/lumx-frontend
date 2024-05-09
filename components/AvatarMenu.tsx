@@ -25,6 +25,7 @@ import Link from 'next/link'
 export function AvatarMenu() {
   const [loading, setLoading] = useState<boolean>(false)
   const [user, setUser] = useState<userType | null>(null)
+  const [balance, setBalance] = useState<number>(0)
 
   const {
     name,
@@ -39,10 +40,29 @@ export function AvatarMenu() {
     setEmail,
   } = React.useContext(AuthContext) as any
 
-  const getUserData = async () => {
+  const getBalanceData = async () => {
     try {
       setLoading(true)
-      setUser(userData[0])
+
+      const options = {
+        method: 'GET',
+      }
+
+      const url =
+        process.env.NEXT_PUBLIC_API_URL +
+        '/influencers/' +
+        walletId +
+        '/balance'
+
+      console.log(url)
+
+      const response = await fetch(url, options)
+      const data = await response.json()
+
+      console.log(data)
+      const { balance } = data
+
+      setBalance(balance)
       setLoading(false)
     } catch (error) {
       console.error(error)
@@ -58,7 +78,7 @@ export function AvatarMenu() {
   }
 
   useEffect(() => {
-    getUserData()
+    getBalanceData()
   })
 
   useEffect(() => {
@@ -76,7 +96,7 @@ export function AvatarMenu() {
                 <div className='space-y-2'>
                   <p className='text-xs font-medium leading-none'>Balance</p>
                   <p className='text-xs text-primary font-bold leading-none'>
-                    {user?.balance} FTX
+                    {balance} FTX
                   </p>
                 </div>
                 <div className='space-y-2'>
