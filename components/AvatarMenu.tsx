@@ -79,7 +79,7 @@ export function AvatarMenu() {
 
   useEffect(() => {
     getBalanceData()
-  })
+  }, [walletId])
 
   useEffect(() => {
     signOutHandler()
