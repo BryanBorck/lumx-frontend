@@ -18,19 +18,23 @@ import { Input } from '@/components/ui/input'
 import { Reveal, RevealWrapper } from '@/components/Reveal'
 import { toast } from './ui/use-toast'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useState } from 'react'
+import { Loader2 } from 'lucide-react'
 
 const formSchema = z.object({
   name: z.string(),
   description: z.string(),
   location: z.string(),
   date: z.string(),
-  ticketSupply: z.number(),
-  tokenEarned: z.number(),
-  tokenSpent: z.number(),
-  price: z.number(),
+  ticketSupply: z.string(),
+  tokenEarned: z.string(),
+  tokenSpent: z.string(),
+  price: z.string(),
 })
 
 export function EventForm() {
+  const [loading, setLoading] = useState(false)
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,21 +42,45 @@ export function EventForm() {
       description: '',
       location: '',
       date: '',
-      ticketSupply: 0,
-      tokenEarned: 0,
-      tokenSpent: 0,
-      price: 0,
+      ticketSupply: '',
+      tokenEarned: '',
+      tokenSpent: '',
+      price: '',
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    toast({
-      title: 'You created an event! 🎉',
-      description: 'Continue using Festx to improve your marketing!',
-    })
-    console.log(values)
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      setLoading(true)
+
+      const { name, description, date, tokenEarned } = values
+
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          description: description,
+          date: 1234,
+          reward_per_sell: Number(tokenEarned),
+        }),
+      }
+
+      const url = process.env.NEXT_PUBLIC_API_URL + '/event'
+
+      console.log(url)
+
+      await fetch(url, options)
+
+      toast({
+        title: 'You created an event! 🎉',
+        description: 'Congratulations, continue using Festx!',
+      })
+
+      setLoading(false)
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
@@ -65,7 +93,7 @@ export function EventForm() {
       <RevealWrapper>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-            <TabsContent value='account'>
+            <TabsContent value='account' className='space-y-2'>
               <Reveal delay={0.4}>
                 <FormField
                   control={form.control}
@@ -127,7 +155,7 @@ export function EventForm() {
                 />
               </Reveal>
             </TabsContent>
-            <TabsContent value='token'>
+            <TabsContent value='token' className='space-y-2'>
               <Reveal delay={0.4}>
                 <FormField
                   control={form.control}
@@ -194,9 +222,16 @@ export function EventForm() {
               </Reveal>
               <Reveal delay={1.2}>
                 <div className='mt-6'>
-                  <Button variant='outline' type='submit'>
-                    Submit
-                  </Button>
+                  {loading ? (
+                    <Button disabled>
+                      <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                      Please wait
+                    </Button>
+                  ) : (
+                    <Button variant='outline' type='submit'>
+                      Submit
+                    </Button>
+                  )}
                 </div>
               </Reveal>
             </TabsContent>

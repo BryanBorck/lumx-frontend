@@ -17,9 +17,10 @@ import {
 import { Input } from '@/components/ui/input'
 import { Reveal } from '@/components/Reveal'
 import { toast } from './ui/use-toast'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import AuthContext from '@/app/contexts'
 import { AuthTypes } from '@/types/types'
+import { Loader2 } from 'lucide-react'
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -31,6 +32,8 @@ const formSchema = z.object({
 })
 
 export function SignInForm() {
+  const [loading, setLoading] = useState(false)
+
   const { setEmail, setName, setReferralCode, setWalletId, setWalletAddress } =
     useContext(AuthContext) as any
 
@@ -45,6 +48,8 @@ export function SignInForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Auth API
     try {
+      setLoading(true)
+
       const { username, password } = values
 
       const options = {
@@ -78,6 +83,9 @@ export function SignInForm() {
         title: 'You sign in! 🎉',
         description: 'Welcome to the app!',
       })
+
+      setLoading(false)
+
       console.log(values)
     } catch (err) {
       console.error(err)
@@ -123,9 +131,16 @@ export function SignInForm() {
             />
           </Reveal>
           <Reveal delay={0.8}>
-            <Button className='w-full mt-2' variant='outline' type='submit'>
-              Sign in
-            </Button>
+            {loading ? (
+              <Button disabled>
+                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                Please wait
+              </Button>
+            ) : (
+              <Button className='w-full mt-2' variant='outline' type='submit'>
+                Sign in
+              </Button>
+            )}
           </Reveal>
         </form>
       </Form>

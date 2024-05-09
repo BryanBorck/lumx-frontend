@@ -28,11 +28,11 @@ export default function ProfileMenu() {
   const [user, setUser] = useState<userType | null>(null)
   const [events, setEvents] = useState<eventType[]>([])
 
-  const {email, referralCode, name, walletId} = useContext(AuthContext) as any;
+  const { email, referralCode, name, walletId } = useContext(AuthContext) as any
 
-  console.log("email", email);
-  console.log("referralCode", referralCode);
-  console.log("name", name);
+  console.log('email', email)
+  console.log('referralCode', referralCode)
+  console.log('name', name)
 
   const getPageData = async () => {
     try {
@@ -140,7 +140,8 @@ export default function ProfileMenu() {
                         {name}
                       </p>
                       <p className='text-lg font-light text-background'>
-                        @{user?.instagram}
+                        {/* @{user?.instagram} */}
+                        @user_instagram
                       </p>
                     </div>
                     <div className='absolute right-12 top-8'>
@@ -154,11 +155,7 @@ export default function ProfileMenu() {
                 <div className='px-12 pt-4'>
                   <CardTitle>Update Information</CardTitle>
                   <CardDescription className='mt-8'>
-                    <Input
-                      placeholder='Name'
-                      className='mb-4'
-                      value={name}
-                    />
+                    <Input placeholder='Name' className='mb-4' value={name} />
                     <Input
                       placeholder='Instagram'
                       className='mb-4'
