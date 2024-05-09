@@ -57,6 +57,29 @@ export default function InviteTester() {
       await new Promise(resolve => setTimeout(resolve, 2000))
       console.log('Event ID:', eventId)
       console.log('Invite code:', invitecode)
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          event_id: eventId,
+          referral_code: invitecode,
+        })
+      
+      }
+
+      const url = process.env.NEXT_PUBLIC_API_URL + "/send";
+
+
+      const response = await fetch(url, options);
+
+      const data = await response.json();
+
+      console.log(data);
+
+
       setLoading(false)
       setSubmitted(true)
       toast({
