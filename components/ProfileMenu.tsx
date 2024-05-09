@@ -159,7 +159,7 @@ export default function ProfileMenu() {
                     <Input
                       placeholder='Instagram'
                       className='mb-4'
-                      value={user?.instagram}
+                      value={'@user_instagram'}
                     />
                     <Input
                       placeholder='Email'
@@ -169,7 +169,7 @@ export default function ProfileMenu() {
                     <Input
                       placeholder='Location'
                       className='mb-4'
-                      value={user?.location}
+                      value={'Location'}
                     />
                     <Button className='w-full text-background'>Update</Button>
                   </CardDescription>
