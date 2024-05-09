@@ -19,6 +19,7 @@ export default function AuthProvider({
   const [walletAddress, setWalletAddress] = React.useState('')
   const [email, setEmail] = React.useState('')
   const [name, setName] = React.useState('')
+  const [balanceGlobal, setBalanceGlobal] = React.useState('')
 
   const authObj: AuthTypes = {
     referralCode,
@@ -31,6 +32,8 @@ export default function AuthProvider({
     setEmail,
     name,
     setName,
+    balanceGlobal,
+    setBalanceGlobal,
   }
 
   return <AuthContext.Provider value={authObj}>{children}</AuthContext.Provider>
