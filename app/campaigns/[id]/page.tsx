@@ -71,11 +71,11 @@ export default function CampaignDetails({ params: { id } }) {
   }
 
   return (
-    <div className='w-[95vw] mt-16'>
+    <div className='w-[100vw] mt-16'>
       <RevealWrapper>
         <div className='p-12 flex flex-col items-center'>
-          <div className='shadow-2xl border-lg w-[90%] borded-primary border-[4px] overflow-hidden'>
-            <div className='h-[85vh] flex flex-row'>
+          <div className='shadow-2xl border-lg w-[80%] borded-primary border-[4px] overflow-hidden'>
+            <div className='h-[70vh] flex flex-row'>
               <div className='w-[60%] h-full relative overflow-hidden bg-red-600'>
                 <Image
                   src={event?.image as unknown as string}
