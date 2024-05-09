@@ -8,11 +8,11 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode
 }) {
-  const [referralCode, setReferralCode] = React.useState('')
-  const [walletId, setWalletId] = React.useState('')
-  const [walletAddress, setWalletAddress] = React.useState('')
-  const [email, setEmail] = React.useState('');
-  const [name, setName] = React.useState('');
+  const [referralCode, setReferralCode] = React.useState('lb3af7a6')
+  const [walletId, setWalletId] = React.useState('5379e635-a5f0-470f-9b01-36ea518fa531')
+  const [walletAddress, setWalletAddress] = React.useState('0xA1357AA56dDedc614D5ac6Ad86D59cD5cCcAf00c')
+  const [email, setEmail] = React.useState('luiz5@gmail.com');
+  const [name, setName] = React.useState('luiz');
 
   const authObj: AuthTypes = {
     referralCode,

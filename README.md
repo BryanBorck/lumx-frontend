@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Festx - a Lumx Application 
+
+We are Festx! An application made using the Lumx protocol to boost the market of small and medium influencers, connecting them with their favourite parties and clubs. With our service, anyone is eligible to become an event promoter. Create an account, choose the event campaign you want to partake, share you referral code and earn tokens to trade for other events!
 
 ## Getting Started
 

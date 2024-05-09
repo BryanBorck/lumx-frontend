@@ -68,7 +68,6 @@ export function SignInForm() {
     console.log(data.referral_code)
 
     if (response.status === 200) {
-      console.log("AAAA")
       setEmail(data.email)
       setName(data.name)
       setReferralCode(data.referral_code)
@@ -78,8 +77,6 @@ export function SignInForm() {
     } else {
       console.error(data)
     }
-
-
 
     try{
       
