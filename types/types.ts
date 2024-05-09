@@ -6,7 +6,7 @@ export type AuthTypes = {
   walletAddress: string
   setWalletAddress: any
   email: string
-  setEmail: any,
-  name: string,
-  setName: any,
+  setEmail: any
+  name: string
+  setName: any
 }

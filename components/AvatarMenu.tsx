@@ -20,12 +20,24 @@ import { userData } from '@/utils/mock'
 import { useEffect, useState } from 'react'
 import { Button } from './ui/button'
 import AuthContext from '@/app/contexts'
+import Link from 'next/link'
 
 export function AvatarMenu() {
   const [loading, setLoading] = useState<boolean>(false)
   const [user, setUser] = useState<userType | null>(null)
 
-  const {name, referralCode, walletId, walletAddress, email} = React.useContext(AuthContext) as any;
+  const {
+    name,
+    setName,
+    referralCode,
+    setReferralCode,
+    walletId,
+    setWalletId,
+    walletAddress,
+    setWalletAddress,
+    email,
+    setEmail,
+  } = React.useContext(AuthContext) as any
 
   const getUserData = async () => {
     try {
@@ -37,17 +49,29 @@ export function AvatarMenu() {
     }
   }
 
+  const signOutHandler = async () => {
+    setEmail('')
+    setName('')
+    setReferralCode('')
+    setWalletId('')
+    setWalletAddress('')
+  }
+
   useEffect(() => {
     getUserData()
   })
+
+  useEffect(() => {
+    signOutHandler()
+  }, [])
 
   return (
     <NavigationMenu>
       <NavigationMenuViewport className='' />
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>
-            {!loading && user && (
+          {!loading && name && (
+            <NavigationMenuTrigger>
               <div className='w-[300x] flex flex-row items-center h-full space-x-4'>
                 <div className='space-y-2'>
                   <p className='text-xs font-medium leading-none'>Balance</p>
@@ -56,9 +80,7 @@ export function AvatarMenu() {
                   </p>
                 </div>
                 <div className='space-y-2'>
-                  <p className='text-xs font-medium leading-none'>
-                    {user?.name}
-                  </p>
+                  <p className='text-xs font-medium leading-none'>{name}</p>
                   <p className='text-xs text-primary font-bold leading-none'>
                     {referralCode}
                   </p>
@@ -68,22 +90,27 @@ export function AvatarMenu() {
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
               </div>
-            )}
-            {!user && (
-              <div className='w-[300px] h-full flex flex-row items-center justify-center'>
-                <div className='text-primary font-bold leading-none'>
-                  Sign In
-                </div>
-              </div>
-            )}
-          </NavigationMenuTrigger>
+            </NavigationMenuTrigger>
+          )}
+          {!name && (
+            <Link href='/signin'>
+              <Button className=' text-background'>Sign In</Button>
+            </Link>
+          )}
           <NavigationMenuContent>
             <ul className='grid gap-1 p-2 md:w-[200px] lg:w-[300px]'>
               <ListItem href='/profile' title='Profile'></ListItem>
               <div className='flex flex-col items-center justify-center w-[100%] hidden lg:flex'>
                 <ModeToggle />
               </div>
-              <ListItem href='/' title='Sign Out'></ListItem>
+              {/* <Link href='/'> */}
+              <div
+                onClick={signOutHandler}
+                className='cursor-pointer text-sm font-medium leading-none block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground'
+              >
+                Sign Out
+              </div>
+              {/* </Link> */}
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

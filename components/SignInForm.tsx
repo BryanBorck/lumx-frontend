@@ -31,7 +31,8 @@ const formSchema = z.object({
 })
 
 export function SignInForm() {
-  const { setEmail, setName, setReferralCode, setWalletId, setWalletAddress,  } = useContext(AuthContext) as any;
+  const { setEmail, setName, setReferralCode, setWalletId, setWalletAddress } =
+    useContext(AuthContext) as any
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,56 +43,45 @@ export function SignInForm() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-
-
     // Auth API
+    try {
+      const { username, password } = values
 
-    const { username, password } = values
+      const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: username,
+          password: password,
+        }),
+      }
 
-    const options = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
-        email: username,
-        password: password,
-      }),
-    }
+      const url = process.env.NEXT_PUBLIC_API_URL + '/signin'
 
-    const url = process.env.NEXT_PUBLIC_API_URL + '/signin';
+      const response = await fetch(url, options)
+      const data = await response.json()
 
-    const response = await fetch(url, options)
-    const data = await response.json()
+      console.log(data)
+      console.log(data.referral_code)
 
-    console.log(data)
-    console.log(data.referral_code)
+      if (response.status === 200) {
+        setEmail(data.email)
+        setName(data.name)
+        setReferralCode(data.referral_code)
+        setWalletId(data.wallet_id)
+        setWalletAddress(data.wallet_address)
+      } else {
+        console.error(data)
+      }
 
-    if (response.status === 200) {
-      setEmail(data.email)
-      setName(data.name)
-      setReferralCode(data.referral_code)
-      setWalletId(data.wallet_id)
-      setWalletAddress(data.wallet_address)
-
-    } else {
-      console.error(data)
-    }
-
-    try{
-      
-      
       toast({
         title: 'You sign in! 🎉',
         description: 'Welcome to the app!',
       })
       console.log(values)
-
-    } catch(err){
+    } catch (err) {
       console.error(err)
-
     }
-    
   }
 
   return (
@@ -107,7 +97,7 @@ export function SignInForm() {
               name='username'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Username</FormLabel>
+                  <FormLabel>Username (email)</FormLabel>
                   <FormControl>
                     <Input placeholder='shadcn' {...field} />
                   </FormControl>
