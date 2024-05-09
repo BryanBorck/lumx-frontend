@@ -19,6 +19,7 @@ import { Reveal } from '@/components/Reveal'
 import { toast } from './ui/use-toast'
 import { useContext, useState } from 'react'
 import AuthContext from '@/app/contexts'
+import { Loader2 } from 'lucide-react'
 
 const formSchema = z.object({
   username: z.string().min(2, {
@@ -31,6 +32,8 @@ const formSchema = z.object({
 })
 
 export function ProfileForm() {
+  const [loading, setLoading] = useState(false)
+
   const [inviteCode, setInviteCode] = useState('' as string)
   const { setEmail, setWalletId, setWalletAddress, setReferralCode, setName } =
     useContext(AuthContext) as any
@@ -46,6 +49,8 @@ export function ProfileForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
+      setLoading(true)
+
       const { username, password, email } = values
 
       const options = {
@@ -81,6 +86,8 @@ export function ProfileForm() {
         title: 'You sign up! 🎉',
         description: 'Your invite code is ' + referral_code + '!',
       })
+
+      setLoading(false)
     } catch (err) {
       console.error(err)
     }
@@ -144,9 +151,16 @@ export function ProfileForm() {
             />
           </Reveal>
           <Reveal delay={1}>
-            <Button className='w-full mt-2' variant='outline' type='submit'>
-              Sign up
-            </Button>
+            {loading ? (
+              <Button className='w-full mt-2' variant='outline' disabled>
+                <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                Please wait
+              </Button>
+            ) : (
+              <Button className='w-full mt-2' variant='outline' type='submit'>
+                Sign up
+              </Button>
+            )}
           </Reveal>
         </form>
       </Form>

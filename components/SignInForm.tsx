@@ -132,7 +132,7 @@ export function SignInForm() {
           </Reveal>
           <Reveal delay={0.8}>
             {loading ? (
-              <Button disabled>
+              <Button className='w-full mt-2' variant='outline' disabled>
                 <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                 Please wait
               </Button>

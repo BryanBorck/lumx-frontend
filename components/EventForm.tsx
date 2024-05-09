@@ -223,12 +223,12 @@ export function EventForm() {
               <Reveal delay={1.2}>
                 <div className='mt-6'>
                   {loading ? (
-                    <Button disabled>
+                    <Button className='w-full' variant='outline' disabled>
                       <Loader2 className='mr-2 h-4 w-4 animate-spin' />
                       Please wait
                     </Button>
                   ) : (
-                    <Button variant='outline' type='submit'>
+                    <Button className='w-full' variant='outline' type='submit'>
                       Submit
                     </Button>
                   )}
