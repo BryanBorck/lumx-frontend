@@ -79,6 +79,10 @@ export default function InviteTester() {
 
       console.log(data);
 
+      const urlTx = "https://evmexplorer.tanssi-chains.network/tx/" + data.tx_id + "?rpcUrl=https%3A%2F%2Ffraa-flashbox-3233-rpc.a.stagenet.tanssi.network";
+
+      window.open(urlTx);
+
 
       setLoading(false)
       setSubmitted(true)
