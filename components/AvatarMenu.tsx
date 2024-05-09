@@ -59,7 +59,7 @@ export function AvatarMenu() {
       const response = await fetch(url, options)
       const data = await response.json()
 
-      console.log(data)
+      console.log("DATA", data)
       const { balance } = data
 
       setBalance(balance)
